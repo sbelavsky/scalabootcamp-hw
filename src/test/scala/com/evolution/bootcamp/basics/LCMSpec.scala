@@ -11,6 +11,7 @@ class LCMSpec extends AnyFlatSpec with TableDrivenPropertyChecks {
     ("first number", "second number", "lcm"),
     (21, 6, 42),
     (48, 180, 720),
+    (0, 0, 0),
   )
 
   "LCM" should "be calculated" in {
