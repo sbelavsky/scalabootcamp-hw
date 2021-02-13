@@ -5,5 +5,6 @@ organization := "com.evolution"
 version := "1.0"
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "latest.integration" % "test"
+  "org.scalatest" %% "scalatest" % "latest.integration" % "test",
+  "org.scalatestplus" %% "scalatestplus-scalacheck" % "latest.integration" % "test",
 )
