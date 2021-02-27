@@ -59,10 +59,11 @@ object Task4 {
     def ===(a: T, b: T): Boolean
   }
 
-  implicit def equals[T]: Equals[T] = (a, b) => (a, b) match {
-    case (x, y) => x == y
-    case _ => false
-  }
+  implicit def equals[T]: Equals[T] = (a, b) =>
+    (a, b) match {
+      case (x, y) => x == y
+      case _      => false
+    }
 
   implicit class EqualsOps[T](x: T) {
     def ===(that: T)(implicit eq: Equals[T]) = {
@@ -74,5 +75,24 @@ object Task4 {
 }
 
 object AdvancedHomework {
-  // TODO: create a typeclass for flatMap method
+  trait FlatMap[T] {
+    def flatMap(list: List[T], f: T => List[T]): List[T]
+  }
+
+  implicit def flatMap[T]: FlatMap[T] = (list, f) => {
+    def recur(list: List[T], f: T => List[T]): List[T] = {
+      list match {
+        case Nil          => Nil
+        case head :: next => f(head) ::: recur(next, f)
+      }
+    }
+    recur(list, f)
+  }
+
+  implicit class FlatMapOps[T](x: List[T]) {
+    def coolFlatMap(f: T => List[T])(implicit fm: FlatMap[T]): List[T] = {
+      fm.flatMap(x, f)
+    }
+  }
+
 }
