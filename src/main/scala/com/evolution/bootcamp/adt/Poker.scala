@@ -80,14 +80,14 @@ object Poker {
 
   object Hand {
 
-    final abstract case class OmahaHand private(cards: Set[Card]) extends Hand(cards)
+    final case class OmahaHand private(cards: Set[Card]) extends Hand(cards)
 
-    final abstract case class TexasHand private(cards: Set[Card]) extends Hand(cards)
+    final case class TexasHand private(cards: Set[Card]) extends Hand(cards)
 
     def apply(cards: Set[Card]): Either[String, Hand] = cards.size match {
       case 2 => Right(TexasHand(cards))
       case 5 => Right(OmahaHand(cards))
-      case _ => Left(s"unknown hand size: ${_}")
+      case _ => Left(s"unknown hand size")
     }
   }
 
