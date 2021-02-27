@@ -87,7 +87,7 @@ object Poker {
     def apply(cards: Set[Card]): Either[String, Hand] = cards.size match {
       case 2 => Right(TexasHand(cards))
       case 5 => Right(OmahaHand(cards))
-      case _ => Left(s"unknown hand size")
+      case _ => Left("unknown hand size")
     }
   }
 
