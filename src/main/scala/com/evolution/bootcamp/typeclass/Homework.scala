@@ -54,6 +54,23 @@ object Task4 {
   // TODO: design a typesafe equals so i can do a === b, but it won't compile if a and b are of different types
   // define the typeclass (think of a method signature)
   // remember `a method b` is `a.method(b)`
+
+  trait Equals[T] {
+    def ===(a: T, b: T): Boolean
+  }
+
+  implicit def equals[T]: Equals[T] = (a, b) => (a, b) match {
+    case (x, y) => x == y
+    case _ => false
+  }
+
+  implicit class EqualsOps[T](x: T) {
+    def ===(that: T)(implicit eq: Equals[T]) = {
+      eq.===(x, that)
+    }
+  }
+
+  "a" === "a"
 }
 
 object AdvancedHomework {
